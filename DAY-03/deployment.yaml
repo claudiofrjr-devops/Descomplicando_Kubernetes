@@ -4,19 +4,24 @@ metadata:
   labels:
     app: deployment-nginx
   name: deployment-nginx
+  namespace: giropops
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: deployment-nginx
-  strategy: {}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
         app: deployment-nginx
     spec:
        containers:
-       - image: nginx
+       - image: nginx:1.18
          name: nginx
          resources:
            limits:
